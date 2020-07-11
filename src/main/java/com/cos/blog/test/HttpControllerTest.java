@@ -18,6 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HttpControllerTest {
 	
+	private static final String Tag= "HttpControllerTest";
+	
+	@GetMapping("/http/lombok")
+	public String lombokTest() {
+		Member m = new Member(1, "asdf", "123", "test@test.com");
+		System.out.println(Tag+"getter: "+m.getId()); 
+		m.setId(500);
+		System.out.println(Tag+"setter: "+m.getId()); 
+		
+		Member m1 = new Member().builder().id(300).build();
+		System.out.println(Tag+"builder: "+m1.getId());
+		return "lombok Test 완료";
+		
+	}
+	
 	// http://localhost:8080/http/get (select)
 	@GetMapping("/http/get")
 	public String getTest(Member m) { // messageConverter(Spring boot)
