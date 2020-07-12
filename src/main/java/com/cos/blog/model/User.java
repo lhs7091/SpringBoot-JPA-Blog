@@ -4,13 +4,13 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity // user class is generated on the MySQL table;
-@DynamicInsert // when query insert, exclude null field.
+//@DynamicInsert // when query insert, exclude null field.
 public class User {
 
     @Id // primary key
@@ -38,8 +38,10 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ColumnDefault("'user'")
-    private String role; // admin, user, manager, Enum type is better
+    //@ColumnDefault("'user'")
+    // there is no Roletype in DB
+    @Enumerated(EnumType.STRING)
+    private RoleType role; // admin, user, manager, Enum type is better
 
     @CreationTimestamp // input time automatically
     private Timestamp createdate;
