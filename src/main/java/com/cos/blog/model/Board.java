@@ -1,20 +1,26 @@
 package com.cos.blog.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -36,9 +42,12 @@ public class Board {
     @ColumnDefault("0")
     private int count;
 
-    @ManyToOne // Many = board, one = user
+    @ManyToOne(fetch = FetchType.EAGER) // Many = board, one = user
     @JoinColumn(name="userId")
     private User user; // Object cannot save in DB. FK can use.
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)// mappedBy means that is not FK. Don't make column on DB
+    private List<Reply> reply;
 
     @CreationTimestamp
     private Timestamp createDate;
