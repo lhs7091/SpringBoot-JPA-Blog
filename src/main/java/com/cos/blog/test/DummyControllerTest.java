@@ -1,5 +1,7 @@
 package com.cos.blog.test;
 
+import java.util.List;
+
 //mport java.util.function.Supplier;
 
 import com.cos.blog.model.RoleType;
@@ -7,6 +9,10 @@ import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +24,18 @@ public class DummyControllerTest {
 
     @Autowired //DI
     private UserRepository userRepository;
+
+    // http://localhost:8000/blog/dummy/user/
+    @GetMapping("/dummy/users") 
+    public List<User> list(){
+        return userRepository.findAll();
+    }
+
+    @GetMapping("/dummy/user")
+    public List<User> pageList(@PageableDefault(size = 2, sort = "id", direction = Direction.DESC) Pageable pageable){
+        List<User> users = userRepository.findAll(pageable).getContent();
+        return users;
+    }
 
     // {id} parameter can be received {id}
     // http://localhost:8000/blog/dummy/user/id
