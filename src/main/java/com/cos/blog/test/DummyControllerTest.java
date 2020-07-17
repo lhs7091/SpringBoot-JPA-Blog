@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,17 @@ public class DummyControllerTest {
 
     @Autowired //DI
     private UserRepository userRepository;
+
+    @DeleteMapping("/dummy/user/{id}")
+    public String delete(@PathVariable int id){
+        try{
+            userRepository.deleteById(id); 
+        }catch(Exception e){
+            return "Delete Fail. It is not exist";
+        }
+        
+        return "Delete Complete. id: "+id;
+    }
 
     @Transactional //Dirty checking
     @PutMapping("/dummy/user/{id}")
