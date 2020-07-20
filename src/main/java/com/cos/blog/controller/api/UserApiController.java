@@ -22,8 +22,8 @@ public class UserApiController {
         System.out.println("UserApiController: save call");
 
         user.setRole(RoleType.USER);
-        int result = userService.signUp(user);
-        
-        return new ResponseDto<Integer>(HttpStatus.OK, result);
+        userService.signUp(user);
+
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

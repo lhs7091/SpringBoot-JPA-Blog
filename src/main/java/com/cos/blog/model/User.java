@@ -29,7 +29,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // it follows DB number connetected 
     private int id; // sequence, auto-increment
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30, unique = true)
     private String username; // 아이디
 
     @Column(nullable = false, length = 100) // -> hash encryption
