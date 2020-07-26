@@ -2,10 +2,12 @@ package com.cos.blog.test;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-//@Getter
-//@Setter
+@Getter
+@Setter
 @Data
 //@AllArgsConstructor
 @NoArgsConstructor

@@ -3,6 +3,9 @@ let index={
         $("#btn-save").on("click", ()=>{ // function(){}, ()=> for this binding
             this.save();
         });
+        $("#btn-login").on("click", ()=>{ 
+            this.login();
+        });
     },
 
     save: function(){
@@ -33,6 +36,28 @@ let index={
             location.href="/blog";
         }).fail(function(){
             // fail 
+            alert(JSON.stringify(error));
+        });
+    },
+    
+        login: function(){
+
+        let data = {
+            username: $("#username").val(),
+            password: $("#password").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/blog/api/user/login",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json" 
+        }).done(function(resp){
+            alert("complete of Login");
+            console.log(resp);
+            location.href="/blog";
+        }).fail(function(){
             alert(JSON.stringify(error));
         });
     }
