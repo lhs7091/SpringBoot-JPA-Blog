@@ -25,7 +25,7 @@ let index={
         $.ajax({
             // request sign up
             type: "POST",
-            url: "/blog/api/user",
+            url: "/api/user",
             data: JSON.stringify(data), // http body data
             contentType: "application/json; charset=utf-8", // body data type
             dataType: "json" //when comming response, String type, json format to javascript format
@@ -33,7 +33,7 @@ let index={
             // success
             alert("complete of sign up");
             console.log(resp);
-            location.href="/blog";
+            location.href="/";
         }).fail(function(){
             // fail 
             alert(JSON.stringify(error));
@@ -49,14 +49,14 @@ let index={
 
         $.ajax({
             type: "POST",
-            url: "/blog/api/user/login",
+            url: "/api/user/login",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json" 
         }).done(function(resp){
             alert("complete of Login");
             console.log(resp);
-            location.href="/blog";
+            location.href="/";
         }).fail(function(){
             alert(JSON.stringify(error));
         });

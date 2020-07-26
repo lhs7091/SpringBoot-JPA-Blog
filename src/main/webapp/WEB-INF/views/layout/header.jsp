@@ -19,7 +19,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-		<a class="navbar-brand" href="/blog/">Home</a>
+		<a class="navbar-brand" href="/">Home</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -30,20 +30,20 @@
 				<c:when test="${empty sessionScope.principal }">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link"
-							href="/blog/user/loginForm">Login</a></li>
+							href="/loginForm">Login</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/blog/user/signupForm">Sign Up</a></li>
+							href="/signupForm">Sign Up</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"></a></li>
 					</ul>
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link"
-							href="/blog/board/writeFrom">Write</a></li>
+							href="/board/writeFrom">Write</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/blog/user/userForm">Profile</a></li>
+							href="/user/form">Profile</a></li>
 						<li class="nav-item"><a class="nav-link" 
-							href="/blog/user/logout">Log out</a></li>
+							href="/logout">Log out</a></li>
 					</ul>
 				</c:otherwise>
 			</c:choose>
