@@ -1,6 +1,11 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="principal"/>	
+</sec:authorize>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +22,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+	
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 		<a class="navbar-brand" href="/">Home</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -27,12 +32,12 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			
 			<c:choose>
-				<c:when test="${empty sessionScope.principal }">
+				<c:when test="${empty principal }">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link"
-							href="/loginForm">Login</a></li>
+							href="/auth/loginForm">Login</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/signupForm">Sign Up</a></li>
+							href="/auth/signupForm">Sign Up</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"></a></li>
 					</ul>
 				</c:when>

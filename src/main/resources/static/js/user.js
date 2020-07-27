@@ -3,9 +3,6 @@ let index={
         $("#btn-save").on("click", ()=>{ // function(){}, ()=> for this binding
             this.save();
         });
-        $("#btn-login").on("click", ()=>{ 
-            this.login();
-        });
     },
 
     save: function(){
@@ -25,7 +22,7 @@ let index={
         $.ajax({
             // request sign up
             type: "POST",
-            url: "/api/user",
+            url: "/auth/signUpProc",
             data: JSON.stringify(data), // http body data
             contentType: "application/json; charset=utf-8", // body data type
             dataType: "json" //when comming response, String type, json format to javascript format
@@ -38,29 +35,8 @@ let index={
             // fail 
             alert(JSON.stringify(error));
         });
-    },
-    
-        login: function(){
+    }    
 
-        let data = {
-            username: $("#username").val(),
-            password: $("#password").val()
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "/api/user/login",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json" 
-        }).done(function(resp){
-            alert("complete of Login");
-            console.log(resp);
-            location.href="/";
-        }).fail(function(){
-            alert(JSON.stringify(error));
-        });
-    }
 }
 
 index.init();

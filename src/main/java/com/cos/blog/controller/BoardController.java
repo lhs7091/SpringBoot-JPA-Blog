@@ -1,14 +1,19 @@
 package com.cos.blog.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.cos.blog.config.auth.PrincipalDetail;
+
 @Controller
 public class BoardController {
-
+	
     @GetMapping({"","/"})
-    public String index(){
-        return "index";
+    public String index(@AuthenticationPrincipal PrincipalDetail principal){ // how to find session at controller?
+    	System.out.println("Login ID : "+principal.getUsername());
+        System.out.println("Login PW : "+principal.getPassword());
+    	return "index";
     }
     
 }
