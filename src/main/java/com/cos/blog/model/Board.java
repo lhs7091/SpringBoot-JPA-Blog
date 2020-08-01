@@ -39,7 +39,6 @@ public class Board {
     @Lob // big data
     private String content; // including <html>tag
 
-    @ColumnDefault("0")
     private int count;
 
     @ManyToOne(fetch = FetchType.EAGER) // Many = board, one = user

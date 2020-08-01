@@ -8,8 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cos.blog.model.User;
 
+import lombok.Getter;
+
 // 1. spring security : login process
 // 2. UserDetails object : make save in session 
+@Getter
 public class PrincipalDetail implements UserDetails{
 	
 	private User user; // composition
