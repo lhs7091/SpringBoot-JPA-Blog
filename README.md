@@ -4,6 +4,7 @@
 # BootStrap
 1. w3schools.com  
 2. materializecss.com
+3. https://summernote.org/
 
 
 # Ajax
@@ -16,3 +17,7 @@ The reason of using ajax,
     - server connect to DB and execute sign up function.
     - Data can't return to browser  
   - Asynchronous Communication
+
+ # csrf, xss
+  - xss : javascript attack -> for depend, use lucy filter in naver site
+  - csrf : cross site request forgery -> csrf token
