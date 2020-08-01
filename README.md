@@ -50,3 +50,28 @@ The reason of using ajax,
     
     java -jar [jar file name] &
  
+# deploy.sh 
+    #!/bin/bash  
+
+    REPOSITORY=/home/centos/git
+
+    cd $REPOSITORY/SpringBoot-JPA-Blog/
+
+    CURRENT_PID=$(pgrep -f SpringBoot-JPA-Blog)
+
+    if [ -z $CURRENT_PID ]; then
+        echo "$CURRENT_PID"
+    else
+        echo "> kill -2 $CURRENT_PID"
+        kill -9 $CURRENT_PID
+        sleep 5
+    fi
+
+    git pull
+
+    ./mvnw clean package
+
+    JAR_NAME=blog-0.0.1-SNAPSHOT.jar
+    echo "> JAR Name: $JAR_NAME"
+    java -jar $REPOSITORY/SpringBoot-JPA-Blog/target/$JAR_NAME &
+
