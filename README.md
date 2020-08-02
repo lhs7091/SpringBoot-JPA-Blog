@@ -21,3 +21,57 @@ The reason of using ajax,
  # csrf, xss
   - xss : javascript attack -> for depend, use lucy filter in naver site
   - csrf : cross site request forgery -> csrf token
+  
+  
+ # Mysql setting in CentOS 8.x
+    yum -y install mysqld*  
+    yum -y install git  
+    yum -y install java-1.8.0-openjdk-devel.x86_64  
+      
+    java -version //check jdk 1.8  
+    ps -ef | grep mysqld  
+    service mysqld start // if there is no PID of mysqld  
+    /usr/bin/mysql_secure_installation  //setting root password  
+    
+    mysql -u root -p  
+    create user '[userid]'@'%' identified by '[pw]';  
+    grant all privileges on *.* to '[userid]'@'%';  
+    create database [dbname] character set utf8 default collate utf8_general_ci;  
+    use [dbname];  
+      
+    mkdir ~/git  
+    cd ~/git  
+    git clone [githuburl]  
+    cd [github directory]  
+    vi ./src/main/resources/application.yml // check db uri, user info
+    cd ~/git/[github directory]  
+    ./mvnw clean package  
+    cd target // check jar file
+    
+    java -jar [jar file name] &
+ 
+# deploy.sh 
+    #!/bin/bash  
+
+    REPOSITORY=/home/centos/git
+
+    cd $REPOSITORY/SpringBoot-JPA-Blog/
+
+    CURRENT_PID=$(pgrep -f SpringBoot-JPA-Blog)
+
+    if [ -z $CURRENT_PID ]; then
+        echo "$CURRENT_PID"
+    else
+        echo "> kill -2 $CURRENT_PID"
+        kill -9 $CURRENT_PID
+        sleep 5
+    fi
+
+    git pull
+
+    ./mvnw clean package
+
+    JAR_NAME=blog-0.0.1-SNAPSHOT.jar
+    echo "> JAR Name: $JAR_NAME"
+    java -jar $REPOSITORY/SpringBoot-JPA-Blog/target/$JAR_NAME &
+
