@@ -3,6 +3,9 @@ let index={
         $("#btn-board-save").on("click", ()=>{ // function(){}, ()=> for this binding
             this.save();
         });
+        $("#btn-delete").on("click", ()=>{ // function(){}, ()=> for this binding
+            this.deleteById();
+        });
     },
 
     save: function(){
@@ -26,6 +29,25 @@ let index={
             // success
             alert("save complete");
             //console.log(resp);
+            location.href="/";
+        }).fail(function(){
+            // fail 
+            alert(JSON.stringify(error));
+        });
+    },
+    
+    deleteById: function(){
+		var id = $("#id").text();
+		
+        $.ajax({
+            // request sign up
+            type: "DELETE",
+            url: "/api/board/"+id,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8" 
+        }).done(function(resp){
+            // success
+            alert("Delete complete");
             location.href="/";
         }).fail(function(){
             // fail 
