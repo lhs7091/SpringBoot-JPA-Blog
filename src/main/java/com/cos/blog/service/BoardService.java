@@ -24,8 +24,13 @@ public class BoardService {
     }
     
 	public Page<Board> boardList(Pageable pageable) {
-		// TODO Auto-generated method stub
 		return boardRepository.findAll(pageable);
+	}
+
+	public Board viewContents(int id) {
+		return boardRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("Contents read fail : ID can't find");
+		});		
 	}
     
     
