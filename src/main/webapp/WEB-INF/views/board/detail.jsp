@@ -6,7 +6,7 @@
 <div class="container">
 	<button class="btn btn-secondary" onClick="history.back()">List</button>	
 	<c:if test="${board.user.id == principal.user.id }">
-		<button id="btn-update" class="btn btn-warning">Modify</button>
+		<a href="/board/${board.id }/updateForm" class="btn btn-warning">Modify</a>
 		<button id="btn-delete" class="btn btn-danger">Delete</button>
 	</c:if>
 	<br />

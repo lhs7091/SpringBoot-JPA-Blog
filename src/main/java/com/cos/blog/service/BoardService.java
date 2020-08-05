@@ -39,6 +39,20 @@ public class BoardService {
 	public void delete(int id) {
 		boardRepository.deleteById(id);		
 	}
+	
+	@Transactional
+	public void updateContents(int id, Board requestBoard) {
+		Board board = boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("Contents read fail : ID can't find");
+				});// Durability complete
+		board.setTitle(requestBoard.getContent());
+		board.setContent(requestBoard.getContent());
+		
+		// when service finish, transaction finish too.
+		// dirty checking -> auto update in db(commit)
+		
+	}
     
     
 }

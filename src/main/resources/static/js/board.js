@@ -3,8 +3,11 @@ let index={
         $("#btn-board-save").on("click", ()=>{ // function(){}, ()=> for this binding
             this.save();
         });
-        $("#btn-delete").on("click", ()=>{ // function(){}, ()=> for this binding
+        $("#btn-delete").on("click", ()=>{ 
             this.deleteById();
+        });
+        $("#btn-board-update").on("click", ()=>{ 
+            this.update();
         });
     },
 
@@ -53,7 +56,33 @@ let index={
             // fail 
             alert(JSON.stringify(error));
         });
-    }    
+    },
+    
+    update: function(){
+        let id = $("#id").val();
+        
+        let data = {
+        	title:$("title").val(),
+        	content:$("#content").val()
+        };
+
+        $.ajax({
+            // request sign up
+            type: "PUT",
+            url: "/api/board/"+id,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json" 
+        }).done(function(resp){
+            // success
+            alert("update complete");
+            location.href="/";
+        }).fail(function(){
+            // fail 
+            alert(JSON.stringify(error));
+        });
+    },
+        
 
 }
 
