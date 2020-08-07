@@ -48,7 +48,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="/board/writeForm">Write</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/user/userForm">Profile</a></li>
+							href="/user/updateForm">Profile</a></li>
 						<li class="nav-item"><a class="nav-link" 
 							href="/logout">Log out</a></li>
 					</ul>

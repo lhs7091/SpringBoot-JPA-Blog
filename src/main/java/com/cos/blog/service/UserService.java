@@ -29,6 +29,26 @@ public class UserService {
     	userRepository.save(user);
     }
     
+    @Transactional
+	public void updateUser(User user) {
+    	// if update query, persistence of user object and update.
+    	// and auto commit.
+		User persistence = userRepository.findById(user.getId()).orElseThrow(()->{
+			return new IllegalArgumentException("Fail of finding User");
+		});
+
+		if(!user.getPassword().equals("")) {
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			persistence.setPassword(encPassword);
+		}
+
+		if(!user.getEmail().equals("")) {			
+			persistence.setEmail(user.getEmail());
+		}		
+		
+	}
+    
 //    @Transactional(readOnly = true)
 //	public User login(User user) {
 //		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
