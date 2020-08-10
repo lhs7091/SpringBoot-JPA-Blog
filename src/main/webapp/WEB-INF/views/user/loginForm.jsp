@@ -15,6 +15,7 @@
 		</div>
 
 		<button id="btn-login" class="btn btn-primary">Login</button>
+		<a href="https://kauth.kakao.com/oauth/authorize?client_id=ff2fd63b944a604b3b84f25733b021dc&redirect_uri=http://localhost:8000/auth/kakao/callback&response_type=code"><img height="38" src="/image/kakao_login_medium.png"></a>
 	</form>
 	
 </div>

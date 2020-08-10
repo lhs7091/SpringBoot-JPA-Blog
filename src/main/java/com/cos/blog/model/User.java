@@ -33,7 +33,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // it follows DB number connetected 
     private int id; // sequence, auto-increment
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String username; // 아이디
 
     @Column(nullable = false, length = 100) // -> hash encryption
@@ -47,6 +47,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleType role; // admin, user, manager, Enum type is better
 
+    private String oauth; // web login or kakao, google
+    
     @CreationTimestamp // input time automatically
     private Timestamp createdate;
     

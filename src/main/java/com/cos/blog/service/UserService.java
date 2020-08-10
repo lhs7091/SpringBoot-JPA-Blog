@@ -36,16 +36,30 @@ public class UserService {
 		User persistence = userRepository.findById(user.getId()).orElseThrow(()->{
 			return new IllegalArgumentException("Fail of finding User");
 		});
+		
+		// validation check
+		if(persistence.getOauth() == null || persistence.getOauth().equals("")) {
+			if(!user.getPassword().equals("")) {
+				String rawPassword = user.getPassword();
+				String encPassword = encoder.encode(rawPassword);
+				persistence.setPassword(encPassword);
+			}
+			
+			if(!user.getEmail().equals("")) {			
+				persistence.setEmail(user.getEmail());
+			}	
 
-		if(!user.getPassword().equals("")) {
-			String rawPassword = user.getPassword();
-			String encPassword = encoder.encode(rawPassword);
-			persistence.setPassword(encPassword);
 		}
-
-		if(!user.getEmail().equals("")) {			
-			persistence.setEmail(user.getEmail());
-		}		
+		
+			
+	}
+    
+    @Transactional(readOnly = true)
+	public User findUser(String username) {
+    	User user = userRepository.findByUsername(username).orElseGet(()->{
+    		return new User();
+    	});
+    	return user;		
 	}
     
 //    @Transactional(readOnly = true)
