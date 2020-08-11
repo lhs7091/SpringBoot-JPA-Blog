@@ -14,8 +14,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,7 +47,8 @@ public class Board {
     private User user; // Object cannot save in DB. FK can use.
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)// mappedBy means that is not FK. Don't make column on DB
-    private List<Reply> reply;
+    @JsonIgnoreProperties({"board", "user"})
+    private List<Reply> replys;
 
     @CreationTimestamp
     private Timestamp createDate;
