@@ -7,14 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 
 @Service
 public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    
+    @Autowired
+    private ReplyRepository replyRepository;
 	
     @Transactional
     public void write(Board board, User user) {
@@ -51,6 +56,19 @@ public class BoardService {
 		
 		// when service finish, transaction finish too.
 		// dirty checking -> auto update in db(commit)
+		
+	}
+	
+	@Transactional
+	public void writeReply(User user, int boardId, Reply requestReply) {
+		
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("reply fail : ID can't find");
+		});
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		
+		replyRepository.save(requestReply);
 		
 	}
     

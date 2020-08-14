@@ -9,6 +9,9 @@ let index={
         $("#btn-board-update").on("click", ()=>{ 
             this.update();
         });
+        $("#btn-reply-save").on("click", ()=>{ 
+            this.replySave();
+        });
     },
 
     save: function(){
@@ -81,6 +84,30 @@ let index={
             // fail 
             alert(JSON.stringify(error));
         });
+    },
+    
+    replySave: function(){
+        let data = {
+            content: $("#reply-content").val()
+        };
+        let boardId = $("#boardId").val()        
+        
+        $.ajax({
+            type: "POST",
+            url: `/api/board/${boardId}/reply`,
+            data: JSON.stringify(data), 
+            contentType: "application/json; charset=utf-8", 
+            dataType: "json" 
+        }).done(function(resp){
+            // success
+            alert("complete of Reply update");
+            location.href=`/board/${boardId}`;
+        }).fail(function(){
+            // fail 
+            alert(JSON.stringify(error));
+        });
+
+
     },
         
 
