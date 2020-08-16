@@ -70,6 +70,12 @@ public class BoardService {
 		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
 		
 	}
+	
+	@Transactional
+	public void removeReply(int replyId) {
+		// TODO Auto-generated method stub
+		replyRepository.deleteById(replyId);
+	}
     
     
 }

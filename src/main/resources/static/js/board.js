@@ -107,10 +107,23 @@ let index={
             // fail 
             alert(JSON.stringify(error));
         });
-
-
-    },
         
+    },
+    
+    replyDelete: function(boardId, replyId){
+        $.ajax({
+            type: "DELETE",
+            url: `/api/board/${boardId}/reply/${replyId}`,
+            dataType: "json" 
+        }).done(function(resp){
+            // success
+            alert("complete of Reply Delete");
+            location.href=`/board/${boardId}`;
+        }).fail(function(){
+            // fail 
+            alert(JSON.stringify(error));
+        });
+    },        
 
 }
 

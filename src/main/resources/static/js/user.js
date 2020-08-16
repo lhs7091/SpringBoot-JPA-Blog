@@ -32,9 +32,14 @@ let index={
             dataType: "json" //when comming response, String type, json format to javascript format
         }).done(function(resp){
             // success
-            alert("complete of sign up");
-            console.log(resp);
-            location.href="/";
+            if(resp.status === 500){
+            	alert("Fail of Sign UP")
+            }else{
+            	alert("complete of sign up");
+	            console.log(resp);
+	            location.href="/";
+            }
+            
         }).fail(function(){
             // fail 
             alert(JSON.stringify(error));

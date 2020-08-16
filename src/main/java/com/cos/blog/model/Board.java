@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,7 +48,7 @@ public class Board {
     @JoinColumn(name="userId")
     private User user; // Object cannot save in DB. FK can use.
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)// mappedBy means that is not FK. Don't make column on DB
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)// mappedBy means that is not FK. Don't make column on DB
     @JsonIgnoreProperties({"board", "user"})
     @OrderBy("id desc")
     private List<Reply> replys;
