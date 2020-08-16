@@ -6,11 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
+import com.cos.blog.repository.UserRepository;
 
 @Service
 public class BoardService {
@@ -20,6 +22,9 @@ public class BoardService {
     
     @Autowired
     private ReplyRepository replyRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 	
     @Transactional
     public void write(Board board, User user) {
@@ -60,15 +65,24 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void writeReply(User user, int boardId, Reply requestReply) {
+	public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
 		
-		Board board = boardRepository.findById(boardId).orElseThrow(()->{
-			return new IllegalArgumentException("reply fail : ID can't find");
+		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("reply fail : User ID can't find");
 		});
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
 		
-		replyRepository.save(requestReply);
+		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
+			return new IllegalArgumentException("reply fail : Board ID can't find");
+		});		
+		
+		Reply reply = Reply.builder()
+				.user(user)
+				.board(board)
+				.content(replySaveRequestDto.getContent())
+				.build();
+//		Reply reply = new Reply();
+//		reply.update(user, board, replySaveRequestDto.getContent());		
+		replyRepository.save(reply);
 		
 	}
     
