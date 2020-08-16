@@ -65,24 +65,9 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
-		
-		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
-			return new IllegalArgumentException("reply fail : User ID can't find");
-		});
-		
-		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
-			return new IllegalArgumentException("reply fail : Board ID can't find");
-		});		
-		
-		Reply reply = Reply.builder()
-				.user(user)
-				.board(board)
-				.content(replySaveRequestDto.getContent())
-				.build();
-//		Reply reply = new Reply();
-//		reply.update(user, board, replySaveRequestDto.getContent());		
-		replyRepository.save(reply);
+	public void writeReply(ReplySaveRequestDto replySaveRequestDto) {		
+			
+		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
 		
 	}
     
